@@ -1,14 +1,12 @@
 streamlit
 yfinance
 pandas
-numpy
+numpy>=2.4.6
+scipy>=1.18.0
 networkx
 plotly
 matplotlib
 scikit-learn
 hmmlearn
 GraphRicciCurvature
-pot
-networkit
-moviepy
-kaleido
+POT

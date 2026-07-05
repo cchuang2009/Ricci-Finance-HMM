@@ -1,0 +1,14 @@
+streamlit
+yfinance
+pandas
+numpy
+networkx
+plotly
+matplotlib
+scikit-learn
+hmmlearn
+GraphRicciCurvature
+pot
+networkit
+moviepy
+kaleido

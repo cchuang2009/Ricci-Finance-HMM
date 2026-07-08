@@ -458,7 +458,7 @@ Developed using:
 
 - Streamlit
 - Plotly
-- GraphRicciCurvature
+- GraphRicciCurvature, [patch file, streamlit_app/OllivierRicci_py313_logging.patch](OllivierRicci_py313_logging.patch)
 - hmmlearn
 - NetworkX
 - Python

@@ -1,0 +1,25 @@
+--- OllivierRicci.py
++++ OllivierRicci.py
+@@ -101,8 +101,20 @@
+         # Sum need to be not too small to prevent divided by zero
+         distributions = [(1.0 - _alpha) * w / nbr_edge_weight_sum for w, _ in heap_weight_node_pair]
+     else:
+-        # Sum too small, just evenly distribute to every neighbors
+-        logger.warning("Neighbor weight sum too small, list:", heap_weight_node_pair)
++        # Sum too small, just evenly distribute to every neighbor.
++        # Python 3.13 logging is stricter: pass one formatted string instead of
++        # mixing a message string with a non-format argument.
++        logger.warning(
++            "Neighbor weight sum too small: %s",
++            heap_weight_node_pair
++        )
++
++        # Extra safety for rolling financial graphs: if numerical underflow
++        # produced an empty heap, keep all mass at the source node instead of
++        # dividing by zero.
++        if not heap_weight_node_pair:
++            return [1], [node]
++
+         distributions = [(1.0 - _alpha) / len(heap_weight_node_pair)] * len(heap_weight_node_pair)
+ 
+     nbr = [x[1] for x in heap_weight_node_pair]

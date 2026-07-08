@@ -45,7 +45,7 @@ except Exception:  # pragma: no cover
 DEFAULT_TICKERS = [
     "NVDA", "AMD", "AVGO", "TSM", "MU", "MRVL", "AMAT", "LRCX", "KLAC",
     "ANET", "AAOI", "COHR", "LITE", "SMCI", "PLTR", "IONQ", "QBTS", "QUBT",
-    "RGTI", "NBIS",
+    "RGTI", "NBIS","QNT","SPCX",
 ]
 
 COMPONENT_COLORS = [

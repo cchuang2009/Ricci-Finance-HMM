@@ -28,6 +28,7 @@ from helper import (
     build_base_graph_for_layout,
     build_rolling_frames,
     compare_before_after_flow,
+    compute_components,
     compute_hmm_regimes,
     compute_stable_layout,
     download_market_data,
@@ -281,6 +282,20 @@ if enable_3d:
     )
 
 with st.expander("Edge table: distance, correlation, curvature, and capital flow", expanded=True):
+    st.markdown(
+        """
+        **Column meaning**
+
+        - `u`, `v`: the two tickers connected by this edge.
+        - `distance`: the effective financial distance used by the graph. Smaller means stronger synchronized movement after optional capital weighting.
+        - `raw_distance`: pure correlation distance before capital correction, when available.
+        - `correlation`: rolling-window return correlation between the two tickers.
+        - `ricciCurvature`: Ollivier-Ricci curvature. Positive means coherent/redundant local basin; negative means bridge-like stress channel.
+        - `edge_capital_flow`: dollar-volume weighted transport intensity across the edge. Larger means more capital mass moving through that relation.
+        - `capital_similarity`: similarity of the two tickers' dollar-volume masses. Higher values make the pair closer when capital weighting is enabled.
+        - `edge_source`: whether the edge came from kNN, threshold, or bridge construction.
+        """
+    )
     st.dataframe(summarize_edges(fd.G), width="stretch")
 
 st.subheader("3. Capital-flow transport among clusters")
@@ -317,19 +332,47 @@ flowed_G, flow_history = run_ricci_flow(
 
 st.plotly_chart(plot_ricci_flow_history(flow_history), width="stretch")
 
+st.caption(
+    "Before/after Ricci flow is shown in 3D when enabled: x/y preserve the stable market topology, "
+    "z shows Ricci stress or the selected 3D mode, node size shows capital mass, and edge color shows curvature."
+)
 left, right = st.columns(2)
 with left:
-    st.markdown("**Before flow**")
-    st.plotly_chart(
-        visualize_network(fd.G, positions=positions, title="Before Ricci flow", node_cluster=fd.node_cluster),
-        width="stretch",
-    )
+    st.markdown("**Before flow — 3D view**" if enable_3d else "**Before flow — 2D fallback**")
+    if enable_3d:
+        st.plotly_chart(
+            visualize_network_3d(
+                fd.G,
+                positions_3d=positions_3d,
+                title="Before Ricci flow — 3D Ricci-capital manifold",
+                node_cluster=fd.node_cluster,
+                z_mode=str(z_mode),
+            ),
+            width="stretch",
+        )
+    else:
+        st.plotly_chart(
+            visualize_network(fd.G, positions=positions, title="Before Ricci flow", node_cluster=fd.node_cluster),
+            width="stretch",
+        )
 with right:
-    st.markdown("**After flow**")
-    st.plotly_chart(
-        visualize_network(flowed_G, positions=positions, title="After Ricci flow"),
-        width="stretch",
-    )
+    st.markdown("**After flow — 3D view**" if enable_3d else "**After flow — 2D fallback**")
+    if enable_3d:
+        st.plotly_chart(
+            visualize_network_3d(
+                flowed_G,
+                positions_3d=positions_3d,
+                title="After Ricci flow — 3D Ricci-capital manifold",
+                node_cluster=compute_components(flowed_G),
+                z_mode=str(z_mode),
+            ),
+            width="stretch",
+        )
+    else:
+        st.plotly_chart(
+            visualize_network(flowed_G, positions=positions, title="After Ricci flow"),
+            width="stretch",
+        )
 
 with st.expander("Before/after Ricci-flow edge comparison", expanded=True):
     comparison = compare_before_after_flow(fd.G, flowed_G)

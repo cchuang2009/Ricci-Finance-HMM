@@ -1,36 +1,22 @@
-# Ricci Finance v10 — Streamlit app
+# Ricci Finance v10.6 — Real-market 3D Ricci-Capital Manifold + HMM
 
-This package upgrades the v8/v9 Ricci Finance lecture app with a more sensible market-map graph:
-
-- `threshold`: strong-relation graph only.
-- `knn`: each ticker keeps its nearest positive-correlation neighbors.
-- `knn+bridges`: kNN plus a few weak positive bridge edges to prevent themes from drifting too far apart.
-- Tunable layout spacing `layout_k`; lower values pull disconnected clusters closer.
-- Ricci curvature, Ricci flow, HMM regime diagnostics, edge tables, and CSV exports.
-
-## Run locally
+Run:
 
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## Streamlit Community Cloud
+Includes:
+- real Yahoo Close + Volume via `download_market_data(auto_adjust=False)`
+- dollar-volume node mass and capital-weighted edge transport
+- 2D rolling animation
+- dynamic 3D Ricci-capital animation
+- HMM hidden regimes from Ricci + capital-flow features
+- surgery-risk direction score, not actual graph cutting
 
-Put `app.py`, `helper.py`, `requirements.txt`, and this README in the same GitHub repository root. In Streamlit Cloud, set the main file path to:
+Notebook:
 
-```text
-app.py
+```bash
+jupyter notebook ricci_finance_v10_lecture.ipynb
 ```
-
-## Suggested market-map settings
-
-```text
-graph_mode = knn+bridges
-kNN neighbors = 3
-minimum positive correlation = 0.05
-bridge edges = 3
-cluster spacing k = 0.45
-```
-
-Use `threshold` when you want only strong relations; use `knn+bridges` when the goal is visualizing market relations without excessive component separation.

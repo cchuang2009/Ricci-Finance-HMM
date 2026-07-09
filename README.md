@@ -38,7 +38,7 @@ using:
 The final project is makered as [v11](11), here the short introduction:
 
 <video width="640" height="360" controls>
-  <source src="v11/output/ricci_finance_intro.mp4" type="video/mp4">
+  <source src="https://github.com/cchuang2009/Ricci-Finance-HMM/blob/main/v11/output/ricci_finance_intro.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 

@@ -38,12 +38,8 @@ using:
 The final project is makered as [v11](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/v11/), here the short introduction (https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/v11/output/ricci_finance_intro.mp4):
 
 
-<video controls width="640" height="360" muted loop autoplay playsinline>
-  <source src="ricci_finance_resize.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
 
-![Story](./demo.gif)
+![Story](demo.gif)
 
 ## Financial Distance
 

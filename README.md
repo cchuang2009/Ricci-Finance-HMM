@@ -43,6 +43,8 @@ The final project is makered as [v11](https://github.com/cchuang2009/Ricci-Finan
   Your browser does not support the video tag.
 </video>
 
+![Story](./demo.gif)
+
 ## Financial Distance
 
 The graph uses:

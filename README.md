@@ -35,7 +35,7 @@ using:
 
 ## the Final (v11)
 
-The final project is makered as [v11](11), here the short introduction:
+The final project is makered as [v11](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/v11/), here the short introduction (https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/v11/output/ricci_finance_intro.mp4):
 
 <video width="640" height="360" controls>
   <source src="https://github.com/cchuang2009/Ricci-Finance-HMM/blob/main/v11/output/ricci_finance_intro.mp4" type="video/mp4">

@@ -45,7 +45,7 @@ The final project is makered as [v11](https://github.com/cchuang2009/Ricci-Finan
 
 The graph uses:
 
-$$d_{ij} = (2(1−\rho_{ij}))^{1/2}$$
+$$d_{ij} = \left(2(1−\rho_{ij})\right)^{1/2}$$
 
 where:
 

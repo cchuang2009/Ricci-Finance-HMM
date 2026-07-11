@@ -446,8 +446,9 @@ Example:
 
 # Artifact Suported by [Streamlit](streamlit.io)
 
-1 [v7](https://ricci-finance.streamlit.app/), built by Python3.12
-2 [v11, the Final](https://ricci-finance-hmm-v11.streamlit.app/), built by Python 3.13
+1. [v7](https://ricci-finance.streamlit.app/), built by Python3.12
+
+2. [v11, the Final](https://ricci-finance-hmm-v11.streamlit.app/), built by Python 3.13
 
 # License
 

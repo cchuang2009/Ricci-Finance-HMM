@@ -45,7 +45,7 @@ The final project is makered as [v11](https://github.com/cchuang2009/Ricci-Finan
 
 The graph uses:
 
-d(i,j) = √(2(1−ρ))
+$$d(i,j) = \sqrt{2(1−ρ)}$$
 
 where:
 

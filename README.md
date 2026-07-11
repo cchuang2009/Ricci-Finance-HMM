@@ -38,7 +38,7 @@ using:
 The final project is makered as [v11](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/v11/), here the short introduction (https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/v11/output/ricci_finance_intro.mp4):
 
 
-
+![mp4 Movie](ricci_finance_resize.mp4)
 ![Story](demo.gif)
 
 ## Financial Distance

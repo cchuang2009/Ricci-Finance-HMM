@@ -45,7 +45,7 @@ The final project is makered as [v11](https://github.com/cchuang2009/Ricci-Finan
 
 The graph uses:
 
-$$d(i,j) = \sqrt{2(1−ρ)}$$
+$$d_{ij} = \sqrt{2(1−\rho_{ij})}$$
 
 where:
 
@@ -444,6 +444,11 @@ Example:
 
 ---
 
+# Artifact Suported by [Streamlit](streamlit.io)
+
+1 [v7](https://ricci-finance.streamlit.app/), built by Python3.12
+2 [v11, the Final](https://ricci-finance-hmm-v11.streamlit.app/), built by Python 3.13
+
 # License
 
 MIT
@@ -461,6 +466,8 @@ Dynamic Market Geometry using Ricci Curvature and Hidden Markov Models
 ---
 
 # Author
+
+[Chu-Ching Huang]
 
 Developed using:
 

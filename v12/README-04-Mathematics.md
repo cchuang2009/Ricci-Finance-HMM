@@ -406,9 +406,7 @@ Feature VectorN
 
 These vectors form the observation sequence
 
-$
-x_1,x_2,\cdots,x_T
-$
+$$x_1,x_2,\cdots,x_T$$
 
 used by the Hidden Markov Model.
 

@@ -1,0 +1,12 @@
+numpy
+pandas
+networkx
+streamlit
+yfinance
+plotly
+matplotlib
+scikit-learn
+hmmlearn
+GraphRicciCurvature
+POT
+networkit

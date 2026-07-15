@@ -1,10 +1,12 @@
 # Mathematics
 
-The base financial distance for correlation \(ho_{ij}\) is
+The base financial distance for correlation \(
+ho_{ij}\) is
 
-\[
-d_{ij}=\sqrt{2(1-ho_{ij})}.
-\]
+$$
+d_{ij}=\sqrt{2(1-
+ho_{ij})}.
+$$
 
 Capital similarity can contract this distance to create an effective graph
 metric. Ollivier–Ricci curvature is then computed on the weighted graph.

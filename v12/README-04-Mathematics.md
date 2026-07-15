@@ -121,19 +121,13 @@ Window1 → Window2 → Window3 → ...
 
 # 3. Correlation Distance
 
-The Pearson correlation coefficient
-
-$
-\rho_{ij}
-$
+The Pearson correlation coefficient $\rho_{ij}$
 
 is converted into a geometric distance
 
-$
-d_{ij}
-=
-\sqrt{2(1-\rho_{ij})}.
-$
+$$d_{ij}=\sqrt{2(1-\rho_{ij})}.$$
+$$d_{ij} = \left(2(1−\rho_{ij})\right)^{1/2}$$
+
 
 Properties:
 
@@ -157,17 +151,11 @@ This transforms statistical similarity into graph geometry.
 
 利用 Pearson 相關係數
 
-$
-\rho_{ij}
-$
+$\rho_{ij}$
 
 建立金融距離
 
-$
-d_{ij}
-=
-\sqrt{2(1-\rho_{ij})}.
-$
+$$d_{ij}=\sqrt{2(1-\rho_{ij})}.$$
 
 性質如下：
 
@@ -273,11 +261,11 @@ Ricci 曲率分析的是整個局部幾何，而不是單一邊。
 
 Hamilton introduced Ricci Flow as
 
-$
+$$
 \frac{\partial g}{\partial t}
 =
 -2Ric.
-$
+$$
 
 On graphs,
 
@@ -296,11 +284,11 @@ Its purposes are
 
 Hamilton 提出的 Ricci Flow
 
-$
+$$
 \frac{\partial g}{\partial t}
 =
 -2Ric
-$
+$$
 
 在圖形中可視為反覆利用曲率更新邊權重。
 
@@ -401,7 +389,7 @@ HMM estimates these hidden states from observed graph features.
 
 Each rolling window produces one observation vector
 
-$
+$$
 x_t
 =
 [
@@ -412,7 +400,7 @@ Components,
 Flow,
 ...
 ].
-$
+$$
 
 Therefore,
 
@@ -455,7 +443,7 @@ This allows the model to identify hidden market regimes rather than simply fitti
 
 每一個 Rolling Window 都會產生一組圖形特徵
 
-$
+$$
 x_t
 =
 [
@@ -465,7 +453,7 @@ x_t
 資金流,
 ...
 ]
-$
+$$
 
 形成
 
@@ -492,9 +480,9 @@ FeatureN
 
 形成
 
-$
+$$
 x_1,x_2,\cdots,x_T
-$
+$$
 
 作為 HMM 的輸入。
 

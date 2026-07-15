@@ -1,48 +1,31 @@
 # Architecture
 
-## Software Architecture
-
-```mermaid
-flowchart LR
-App[app_v12.py]-->Data[data.py]
-App-->Rolling[rolling.py]
-App-->Graph[graph.py]
-App-->Capital[capital.py]
-App-->Ricci[ricci.py]
-App-->Regimes[regimes.py]
-App-->Story[story.py]
-App-->Viz[visualization.py]
+```text
+Market data
+    ↓
+Returns and market features
+    ↓
+Rolling graph construction
+    ↓
+Capital-weighted effective distance
+    ↓
+Ollivier–Ricci curvature
+    ↓
+Graph statistics and edge stability
+    ↓
+Hidden Markov regime estimation
+    ↓
+Frame-to-frame story generation
+    ↓
+Static and animated 3-D visualization
 ```
 
-## Mathematical Pipeline
+The architecture separates computation from visualization. `helper.py` remains a
+compatibility facade, while new code should import functions from their owning
+modules under `ricci_finance/`.
 
-```mermaid
-flowchart TD
-A[Prices & Volume<br/>data.py<br/>download_market_data()]
--->B[Returns & Dollar Volume<br/>prices_to_returns()]
--->C[Rolling Windows<br/>build_rolling_frames()]
--->D[Correlation<br/>build_graph_from_window()]
--->E[Distance Matrix]
--->F[Financial Graph]
--->G[Capital Flow<br/>attach_capital_attributes()]
--->H[Ollivier Ricci<br/>compute_ricci_curvature()]
--->I[Ricci Flow<br/>run_ricci_flow()]
--->J[Feature Table<br/>rolling_feature_table()]
--->K[Gaussian HMM<br/>compute_hmm_regimes()]
--->L[Posterior Probability]
--->M[Story<br/>build_frame_stories()]
--->N[3D Animation<br/>build_3d_ricci_capital_animation()]
-```
+---
 
-## Execution Workflow
+**Documentation:** [Documentation Home](README.md) · [Introduction](README-01-Introduction.md) · [Installation](README-02-Installation.md) · [Architecture](README-03-Architecture.md) · [Mathematics](README-04-Mathematics.md) · [Modules](README-05-Modules.md) · [Lecture Guide](README-06-Lecture.md) · [Developer Guide](README-07-Developer.md) · [Future Development](README-08-Future.md)
 
-```mermaid
-flowchart LR
-User-->Sidebar
-Sidebar-->Download
-Download-->Rolling
-Rolling-->Ricci
-Ricci-->HMM
-HMM-->Story
-Story-->Dashboard
-```
+← [Installation](README-02-Installation.md) | [Documentation Home](README.md) | [Mathematics](README-04-Mathematics.md) →

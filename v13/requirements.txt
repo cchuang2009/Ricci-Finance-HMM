@@ -1,0 +1,16 @@
+numpy
+pandas
+scipy
+networkx
+streamlit
+plotly
+matplotlib
+scikit-learn
+hmmlearn
+yfinance
+GraphRicciCurvature
+POT
+networkit
+# Optional engine; v13 runs without it:
+# pomegranate
+# torch

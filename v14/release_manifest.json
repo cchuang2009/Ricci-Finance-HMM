@@ -1,0 +1,13 @@
+{
+  "version": "14.0.0",
+  "release": "Final",
+  "production_data": "yfinance",
+  "primary_regime_engine": "hmmlearn-viterbi",
+  "optional_engines": [
+    "hmmlearn-posterior",
+    "hsmm",
+    "pomegranate"
+  ],
+  "notebook": "notebooks/ricci_finance_v14_yfinance_research.ipynb",
+  "app": "app_v14.py"
+}

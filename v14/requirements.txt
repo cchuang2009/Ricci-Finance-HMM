@@ -1,20 +1,12 @@
-numpy
-pandas
-scipy
-networkx
-streamlit
-plotly
-matplotlib
-scikit-learn
-hmmlearn
-yfinance
-GraphRicciCurvature
-POT
-networkit
-# Optional engine; v13 runs without it:
-# pomegranate
-# torch
-
-jupyterlab
-nbformat
-pytest
+streamlit>=1.41
+yfinance>=0.2.54
+pandas>=2.2
+numpy>=2.0
+scipy>=1.13
+scikit-learn>=1.5
+hmmlearn>=0.3.3
+networkx>=3.3
+plotly>=5.24
+GraphRicciCurvature==0.5.3.2
+pomegranate==1.1.2
+torch>=2.2

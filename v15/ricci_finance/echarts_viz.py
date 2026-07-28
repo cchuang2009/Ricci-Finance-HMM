@@ -12,6 +12,25 @@ PASTEL = [
     "#C9E4DE", "#F6EAC2", "#D6E2FF", "#E2F0CB", "#F1C0E8",
 ]
 
+import json
+import uuid
+from IPython.display import HTML, display
+
+def display_echarts(options, width="100%", height="430px"):
+    div_id = f"echarts_{uuid.uuid4().hex}"
+
+    html = f"""
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+
+    <div id="{div_id}" style="width:{width};height:{height};"></div>
+
+    <script>
+    var chart = echarts.init(document.getElementById("{div_id}"));
+    chart.setOption({json.dumps(options)});
+    </script>
+    """
+
+    display(HTML(html))
 
 def sector_palette(sectors: Mapping[str, str]) -> dict[str, str]:
     names = sorted(set(sectors.values()))
@@ -148,3 +167,29 @@ def heatmap_options(frame: pd.DataFrame, title: str) -> dict:
         "series": [{"type": "heatmap", "data": vals, "label": {"show": True, "formatter": "{@[2]}"},
                     "emphasis": {"itemStyle": {"shadowBlur": 8, "shadowColor": "rgba(0,0,0,.25)"}}}],
     }
+
+def capital_flow_animation_options(
+    aligned_frames,
+    close,
+    sector_map,
+    interval_ms=800,
+):
+    options = []
+
+    for frame in aligned_frames:
+        graph = round_graph_inplace(frame["graph"].copy())
+        date = pd.Timestamp(frame["date"])
+
+        momentum = sector_momentum(
+            close,
+            sector_map,
+            date,
+        ).round(ROUND_DIGITS)
+
+        flow = sector_flow_matrix(
+            graph,
+            sector_map,
+            momentum,
+        ).round(ROUND_DIGITS)
+
+        # Continue building animation...

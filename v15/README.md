@@ -138,3 +138,20 @@ from overwriting the common `plotly.graph_objects as go` module alias and fixes:
 ```text
 AttributeError: 'bool' object has no attribute 'Figure'
 ```
+
+
+## V15-2 ticker and sector input
+
+In `app.py`, enter tickers in **Tickers** and provide one required `TICKER=Sector` line for every ticker in **Ticker sectors**. Example:
+
+```text
+NVDA=Semiconductors
+ANET=Networking
+IONQ=QuantumComputing
+```
+
+The app validates full coverage before downloading data or building graphs. The same mapping drives node colors, sector momentum, sector flow, animation, and GNN sector features.
+
+## V15-2 notebook
+
+`ricci_finance_v15_lecture.ipynb` is bilingual (English / Traditional Chinese), compares correlation, Forman-Ricci, and Ollivier-Ricci networks, explains every visualization output, and provides interpretation conclusions.

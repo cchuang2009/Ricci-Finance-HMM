@@ -1,6 +1,6 @@
 # Ricci Finance V15 Final — SciPy LP, No TensorFlow, No POT
 
-This build removes TensorFlow, Keras, POT (`ot`), and GraphRicciCurvature completely.
+This build removes TensorFlow, Keras, POT (`ot`), and GraphRicciCurvature completely. Why? GNN part can not run on Python >=3.13.
 
 Pipeline:
 
@@ -29,6 +29,8 @@ edge["ricciCurvature"]
 Therefore HMM, graph surgery, visualizations, and the GNN share one downstream data format.
 
 ## Installation
+
+Test on Linux with Python 3-14.2; All passed.
 
 Use a clean Python 3.13 virtual environment:
 
@@ -105,7 +107,7 @@ The HMM `valid_index` is used to select the exact corresponding graph snapshots.
 
 ## Final visualization edition
 
-The final V15 UI replaces the earlier Matplotlib network with Plotly:
+The final V15 UI replaces the earlier Matplotlib network with Plotly and Pyecharts:
 
 - pastel sector colors and adjustable node opacity
 - labels drawn separately from node markers for improved readability
@@ -155,3 +157,5 @@ The app validates full coverage before downloading data or building graphs. The 
 ## V15-2 notebook
 
 `ricci_finance_v15_lecture.ipynb` is bilingual (English / Traditional Chinese), compares correlation, Forman-Ricci, and Ollivier-Ricci networks, explains every visualization output, and provides interpretation conclusions.
+
+`v15_multisector_gnn_network_plot_executed.ipynb` is a multiple-sector GNN model case, in which allow each tick owned multiple sectors. 

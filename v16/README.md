@@ -161,3 +161,19 @@ The app validates full coverage before downloading data or building graphs. The 
 ## V16 starter extension
 
 This package now includes normalized multi-sector profiles and automatic Yahoo metadata/theme detection. See [V16-STARTER.md](V16-STARTER.md).
+
+
+## Main V16 notebook
+
+Open `ricci_finance_v16_lecture.ipynb` for the complete bilingual V16 workflow.
+
+
+## V16.2 dynamic topology update
+
+The app now includes dynamic sector evolution, GCN/GAT selection, 2D/3D latent embedding views, GAT attention, temporal Ricci-community animation, automatic label comparison, and an animated 3D sector Galaxy. Reusable code is located in:
+
+- `ricci_finance/dynamic.py`
+- `ricci_finance/advanced_visualization.py`
+- `ricci_finance/gnn.py`
+
+`umap-learn` is optional. When it is unavailable, the UMAP selection automatically falls back to PCA.

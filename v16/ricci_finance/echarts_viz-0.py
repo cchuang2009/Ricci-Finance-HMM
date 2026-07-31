@@ -153,131 +153,20 @@ def momentum_bar_options(momentum: pd.Series) -> dict:
     }
 
 
-def heatmap_options(
-    frame: pd.DataFrame,
-    title: str,
-    *,
-    label_mode: str = "largest",
-    max_visible_labels: int = 36,
-    x_rotate: int = 45,
-    label_digits: int = 4,
-) -> dict:
-    """Build a readable ECharts heatmap for large sector matrices.
-
-    ``label_mode`` may be ``largest``, ``all``, or ``hover``.  In largest
-    mode only the cells with the greatest absolute values receive visible
-    labels.  All cells retain a native ECharts tooltip.  No JavaScript
-    formatter is used, which avoids Streamlit displaying formatter source.
-    """
-    rows = list(map(str, frame.index))
-    cols = list(map(str, frame.columns))
-
-    raw = []
-    for i in range(len(rows)):
-        for j in range(len(cols)):
-            value = frame.iloc[i, j]
-            if pd.notna(value):
-                raw.append((j, i, float(value)))
-
-    absmax = max([abs(item[2]) for item in raw], default=1.0)
-    nonzero = [item for item in raw if abs(item[2]) > 0.0]
-    ranked = sorted(nonzero, key=lambda item: abs(item[2]), reverse=True)
-    visible_keys = {
-        (j, i) for j, i, _ in ranked[:max(0, int(max_visible_labels))]
-    }
-
-    def compact_number(value: float) -> str:
-        magnitude = abs(value)
-        if magnitude == 0:
-            return "0"
-        if magnitude < 10 ** (-max(1, int(label_digits))):
-            return f"{value:.2e}"
-        return f"{value:.{int(label_digits)}f}".rstrip("0").rstrip(".")
-
-    vals = []
-    mode = str(label_mode).lower()
-    for j, i, value in raw:
-        if mode == "all":
-            show_label = True
-        elif mode == "largest":
-            show_label = (j, i) in visible_keys
-        else:
-            show_label = False
-
-        formatted = compact_number(value)
-        vals.append({
-            "name": f"{rows[i]} → {cols[j]}",
-            "value": [j, i, value, formatted],
-            "label": {"show": bool(show_label)},
-        })
-
+def heatmap_options(frame: pd.DataFrame, title: str) -> dict:
+    rows, cols = list(map(str, frame.index)), list(map(str, frame.columns))
+    vals = [[j, i, float(frame.iloc[i,j])] for i in range(len(rows)) for j in range(len(cols)) if pd.notna(frame.iloc[i,j])]
+    absmax = max([abs(x[2]) for x in vals], default=1.0)
     return {
-        "backgroundColor": "#FBFCFE",
-        "title": {"text": title, "left": 10},
-        "tooltip": {
-            "trigger": "item",
-            "formatter": "{b}<br/>Flow: {@[3]}",
-        },
-        "grid": {
-            "left": 190,
-            "right": 70,
-            "top": 70,
-            "bottom": 155,
-            "containLabel": False,
-        },
-        "xAxis": {
-            "type": "category",
-            "data": cols,
-            "splitArea": {"show": True},
-            "axisLabel": {
-                "interval": 0,
-                "rotate": int(x_rotate),
-                "fontSize": 11,
-                "overflow": "truncate",
-                "width": 130,
-            },
-        },
-        "yAxis": {
-            "type": "category",
-            "data": rows,
-            "splitArea": {"show": True},
-            "axisLabel": {
-                "fontSize": 11,
-                "overflow": "truncate",
-                "width": 180,
-            },
-        },
-        "dataZoom": [
-            {"type": "slider", "xAxisIndex": 0, "bottom": 72, "height": 18},
-            {"type": "inside", "xAxisIndex": 0},
-            {"type": "slider", "yAxisIndex": 0, "right": 15, "width": 18},
-            {"type": "inside", "yAxisIndex": 0},
-        ],
-        "visualMap": {
-            "min": -absmax,
-            "max": absmax,
-            "calculable": True,
-            "orient": "horizontal",
-            "left": "center",
-            "bottom": 15,
-        },
-        "series": [{
-            "type": "heatmap",
-            "data": vals,
-            "label": {
-                "show": False,
-                "fontSize": 9,
-                "formatter": "{@[3]}",
-            },
-            "emphasis": {
-                "itemStyle": {
-                    "shadowBlur": 8,
-                    "shadowColor": "rgba(0,0,0,.25)",
-                }
-            },
-        }],
+        "backgroundColor": "#FBFCFE", "title": {"text": title, "left": 10},
+        "tooltip": {"position": "top"},
+        "grid": {"left": 70, "right": 25, "top": 65, "bottom": 65},
+        "xAxis": {"type": "category", "data": cols, "splitArea": {"show": True}},
+        "yAxis": {"type": "category", "data": rows, "splitArea": {"show": True}},
+        "visualMap": {"min": -absmax, "max": absmax, "calculable": True, "orient": "horizontal", "left": "center", "bottom": 5},
+        "series": [{"type": "heatmap", "data": vals, "label": {"show": True, "formatter": "{@[2]}"},
+                    "emphasis": {"itemStyle": {"shadowBlur": 8, "shadowColor": "rgba(0,0,0,.25)"}}}],
     }
-
 
 def capital_flow_animation_options(
     aligned_frames,

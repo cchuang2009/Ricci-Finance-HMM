@@ -13,3 +13,6 @@ jupyterlab>=4.2
 pytest>=8.3
 pyecharts>=2.0,<3
 streamlit-echarts>=0.4
+
+# Optional for UMAP embedding visualization
+umap-learn>=0.5.7

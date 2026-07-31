@@ -80,3 +80,8 @@ The starter detector is intentionally transparent:
 5. Fall back to `Other: 1.0` if metadata cannot be retrieved.
 
 This is a V16 foundation, not a claim that keyword inference is final. Later V16 stages can add sentence embeddings, SEC segment revenue, and graph-community memberships.
+
+
+## Main V16 notebook
+
+Open `ricci_finance_v16_lecture.ipynb` for the complete bilingual V16 workflow.

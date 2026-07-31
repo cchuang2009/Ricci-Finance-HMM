@@ -538,15 +538,11 @@ try:
                 key="max_matrix_sectors",
             )
         with matrix_control_2:
-            matrix_value_mode = st.selectbox(
-                "Cell values",
-                options=["Largest values", "All values", "Hover only"],
-                index=0,
-                help=(
-                    "Largest values shows the strongest cells without filling the entire "
-                    "matrix with overlapping text. Hover always shows the exact value."
-                ),
-                key="matrix_value_mode",
+            show_matrix_values = st.checkbox(
+                "Show values inside cells",
+                value=False,
+                help="Leave this off for large matrices and read exact values from the tooltip.",
+                key="show_matrix_values",
             )
         with matrix_control_3:
             matrix_label_rotation = st.slider(
@@ -558,17 +554,6 @@ try:
                 key="matrix_label_rotation",
             )
 
-        max_visible_matrix_labels = st.slider(
-            "Maximum visible cell values",
-            min_value=8,
-            max_value=100,
-            value=36,
-            step=4,
-            disabled=matrix_value_mode != "Largest values",
-            help="Only the cells with the largest absolute flow values are labelled.",
-            key="max_visible_matrix_labels",
-        )
-
         display_flow = compact_flow_matrix(flow, max_matrix_sectors).round(ROUND_DIGITS)
         matrix_height = max(620, 42 * len(display_flow.index) + 250)
 
@@ -577,12 +562,7 @@ try:
                 heatmap_options(
                     display_flow,
                     "Sector capital-flow matrix",
-                    label_mode={
-                        "Largest values": "largest",
-                        "All values": "all",
-                        "Hover only": "hover",
-                    }[matrix_value_mode],
-                    max_visible_labels=max_visible_matrix_labels,
+                    show_labels=show_matrix_values,
                     x_rotate=matrix_label_rotation,
                     label_digits=ROUND_DIGITS,
                 )
@@ -591,8 +571,8 @@ try:
             key="sector_flow",
         )
         st.caption(
-            "The largest values are labelled by default. Hover any cell for its exact value; "
-            "choose All values only for a small matrix, and use the zoom sliders for inspection. "
+            "Cell labels are hidden by default to prevent overlap. Hover for exact values, "
+            "use the horizontal/vertical zoom sliders, or reduce the displayed sectors. "
             "Aggregated sectors are included under ‘Other sectors’, preserving total flow."
         )
 

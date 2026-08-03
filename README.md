@@ -28,6 +28,7 @@ using:
 - Graph Ricci Curvature
 - Dynamic financial graphs
 - Hidden Markov Models (HMM)
+- Multi-Sector Ricci Flow + Graph Neural Networks (V16, the final version)
 
 ---
 
@@ -35,11 +36,13 @@ using:
 
 ## the Final (v11)
 
-The final project is makered as [v11](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/v11/), here the short introduction (https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/v11/output/ricci_finance_intro.mp4):
+The demo project is makered as [v11](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/v11/), here the short introduction (https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/v11/output/ricci_finance_intro.mp4):
 
 
 ![mp4 Movie](screenshots/ricci_finance_resize.mp4)
 ![Story](screenshots/demo.gif)
+
+[v16](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/v16/) is the final version in the Project.
 
 ## Financial Distance
 
@@ -449,6 +452,14 @@ Example:
 1. [v7](https://ricci-finance.streamlit.app/), built by Python3.12
 
 2. [v11, the Final](https://ricci-finance-hmm-v11.streamlit.app/), built by Python 3.13
+
+
+# Dock Supported
+
+There are two kinds of Docker creating:
+
+1. [Docker, pip way](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/docker-1.md)
+2. [Docker, uv way](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/docker-1.md), based on Pyhon-3.13 and V16 project.
 
 # License
 

@@ -119,6 +119,58 @@ Advantages
 
 ---
 
+## 3.1 uv Brief Introduction
+
+```shell
+# Initialize project
+> uv init v16
+> cd v16
+# add dependencies, i.e. convert requirements.txt to pyproject.toml
+> uv add numpy pandas ...
+> uv sync 
+> uv lock
+> docker build -t ricci-finance:v16 .
+# chech which docker made
+> docker images
+> docker run -p 8501:8501 ricci-finance:v16
+
+# if failed, enter to check
+> docker run --rm -it --entrypoint /bin/bash ricci-finance:v1
+# sync and rebuild
+> uv sync 
+>
+```
+The the pyproject.toml generated is like:
+
+```text
+[project]
+name = "v16"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "hmmlearn>=0.3.3",
+    "ipython>=9.16.0",
+    "nbformat>=5.10.4",
+    "networkx>=3.6.1",
+    "numpy>=2.5.1",
+    "pandas>=3.0.5",
+    "plotly>=6.9.0",
+    "pyecharts>=2.1.0",
+    "pytest>=9.1.1",
+    "scikit-learn>=1.9.0",
+    "scipy>=1.18.0",
+    "streamlit>=1.60.0",
+    "streamlit-echarts>=0.7.0",
+    "torch>=2.13.0",
+    "yfinance>=1.5.2",
+]
+
+```
+
+<b>Note:</b> build Python-3.13 version due to hmmlearn.
+
 # 4. Dockerfile
 
 ```dockerfile
@@ -126,7 +178,7 @@ Advantages
 # Builder
 ############################
 
-FROM python:3.12-slim-bookworm AS builder
+FROM python:3.13-slim-bookworm AS builder
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -143,7 +195,7 @@ RUN uv sync --frozen --no-dev
 # Runtime
 ############################
 
-FROM python:3.12-slim-bookworm
+FROM python:3.13-slim-bookworm
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -151,7 +203,7 @@ ENV MPLCONFIGDIR=/tmp/matplotlib
 
 WORKDIR /app
 
-COPY --from=builder /app /.venv
+COPY --from=builder /app/.venv /.venv
 
 ENV PATH="/app/.venv/bin:$PATH"
 
@@ -159,12 +211,7 @@ COPY . .
 
 EXPOSE 8501
 
-CMD [
-"streamlit",
-"run",
-"app.py",
-"--server.address=0.0.0.0"
-]
+CMD ["streamlit","run","app.py","--server.address=0.0.0.0"]
 ```
 
 ---

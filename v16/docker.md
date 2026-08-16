@@ -1,0 +1,518 @@
+# Docker Deployment Guide
+# Docker 部署指南
+
+**Ricci Finance V16**
+
+Dynamic Multi-Sector Financial Network Analysis using
+
+- Ricci Curvature
+- Ricci Flow
+- Dynamic Graph Neural Networks
+- Graph Attention Networks
+- Streamlit
+
+---
+
+# Contents / 目錄
+
+1. Why Docker?
+2. Project Structure
+3. Docker Architecture
+4. Dockerfile
+5. .dockerignore
+6. pyproject.toml + uv
+7. Build Image
+8. Multi-platform Build
+9. Apple Silicon
+10. GPU Version
+11. Docker Compose
+12. Persistent Data
+13. Publish Image
+14. Image Size Optimization
+15. Best Practices
+
+---
+
+# 1. Why Docker?
+# 為何使用 Docker？
+
+Docker provides a reproducible execution environment.
+
+Docker 提供一致且可重現的執行環境。
+
+Advantages
+
+- identical environment
+- easy installation
+- dependency isolation
+- cloud deployment
+- reproducible research
+- simplified collaboration
+
+---
+
+# 2. Project Structure
+
+```text
+RicciFinanceV16/
+
+│
+├── app.py
+├── Dockerfile
+├── docker-compose.yml
+├── pyproject.toml
+├── uv.lock
+├── .dockerignore
+├── README.md
+├── DOCKER.md
+│
+├── cache/
+├── data/
+├── figures/
+│
+├── ricci_finance/
+│
+├── requirements-dev.txt
+│
+└── tests/
+```
+
+---
+
+# 3. Docker Architecture
+
+Instead of installing everything directly into one image,
+
+不要將所有套件直接安裝到同一層。
+
+Recommended architecture
+
+```text
+                Builder Stage
+
+                install uv
+                     │
+                     │
+             uv sync --frozen
+                     │
+             build dependencies
+                     │
+                     ▼
+
+                Runtime Stage
+
+            python:3.12-slim
+                     │
+             copy packages
+                     │
+             copy source code
+                     │
+                Streamlit
+```
+
+Advantages
+
+- smaller image
+- cleaner image
+- faster build
+- production ready
+
+---
+
+# 4. Dockerfile
+
+```dockerfile
+############################
+# Builder
+############################
+
+FROM python:3.12-slim-bookworm AS builder
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+RUN pip install --no-cache-dir uv
+
+COPY pyproject.toml uv.lock ./
+
+RUN uv sync --frozen --no-dev
+
+############################
+# Runtime
+############################
+
+FROM python:3.12-slim-bookworm
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV MPLCONFIGDIR=/tmp/matplotlib
+
+WORKDIR /app
+
+COPY --from=builder /app /.venv
+
+ENV PATH="/app/.venv/bin:$PATH"
+
+COPY . .
+
+EXPOSE 8501
+
+CMD [
+"streamlit",
+"run",
+"app.py",
+"--server.address=0.0.0.0"
+]
+```
+
+---
+
+# 5. .dockerignore
+
+```
+.git
+.github
+
+__pycache__/
+
+*.pyc
+
+.ipynb_checkpoints/
+
+*.ipynb
+
+.cache/
+
+.vscode/
+
+.idea/
+
+figures/
+
+cache/
+
+tests/
+
+docs/
+
+*.gif
+*.png
+*.jpg
+*.pdf
+
+*.mp4
+
+data/*.csv
+data/*.parquet
+```
+
+---
+
+# 6. Dependency Management
+
+Ricci Finance V16 uses
+
+```
+uv
+```
+
+instead of
+
+```
+pip
+```
+
+Advantages
+
+- much faster
+- reproducible
+- deterministic lockfile
+- smaller cache
+- modern Python workflow
+
+Install
+
+```bash
+uv sync
+```
+
+Update
+
+```bash
+uv lock
+```
+
+---
+
+# 7. Build Docker Image
+
+```bash
+docker build \
+-t ricci-finance:v16 .
+```
+
+Verify
+
+```bash
+docker images
+```
+
+---
+
+# 8. Run
+
+```bash
+docker run \
+-p 8501:8501 \
+ricci-finance:v16
+```
+
+Open
+
+```
+http://localhost:8501
+```
+
+---
+
+# 9. Apple Silicon (M1/M2/M3/M4)
+
+Ricci Finance fully supports
+
+- Mac mini
+- Mac Studio
+- MacBook Air
+- MacBook Pro
+- iMac
+
+Apple Silicon build
+
+```bash
+docker build \
+--platform linux/arm64 \
+-t ricci-finance:v16-arm64 .
+```
+
+Intel build
+
+```bash
+docker build \
+--platform linux/amd64 \
+-t ricci-finance:v16-amd64 .
+```
+
+Universal image
+
+```bash
+docker buildx build \
+--platform linux/amd64,linux/arm64 \
+-t ricci-finance:v16 \
+--push .
+```
+
+Docker automatically downloads the correct architecture.
+
+---
+
+# 10. Apple GPU (MPS)
+
+For GCN/GAT training,
+
+```python
+import torch
+
+device = torch.device(
+    "mps"
+    if torch.backends.mps.is_available()
+    else "cpu"
+)
+
+model.to(device)
+```
+
+No CUDA installation is required.
+
+---
+
+# 11. NVIDIA GPU Version
+
+Optional Dockerfile
+
+```
+Dockerfile.cuda
+```
+
+Base image
+
+```dockerfile
+FROM nvidia/cuda:12.8.0-runtime-ubuntu24.04
+```
+
+Run
+
+```bash
+docker run \
+--gpus all \
+-p 8501:8501 \
+ricci-finance:v16-cuda
+```
+
+---
+
+# 12. Docker Compose
+
+```yaml
+services:
+
+  ricci-finance:
+
+    build: .
+
+    container_name: ricci-finance-v16
+
+    restart: unless-stopped
+
+    ports:
+
+      - "8501:8501"
+
+    volumes:
+
+      - ./data:/app/data
+
+      - ./cache:/app/cache
+
+      - ./figures:/app/figures
+```
+
+Run
+
+```bash
+docker compose up --build
+```
+
+Stop
+
+```bash
+docker compose down
+```
+
+---
+
+# 13. Persistent Data
+
+Recommended directories
+
+```
+data/
+cache/
+figures/
+```
+
+Mount
+
+```bash
+-v ./data:/app/data
+```
+
+so downloaded market data and generated figures persist outside the container.
+
+---
+
+# 14. Publish Docker Image
+
+Docker Hub
+
+```bash
+docker tag ricci-finance:v16 USER/ricci-finance:v16
+
+docker push USER/ricci-finance:v16
+```
+
+GitHub Container Registry
+
+```bash
+docker tag ricci-finance:v16 \
+ghcr.io/USER/ricci-finance:v16
+
+docker push \
+ghcr.io/USER/ricci-finance:v16
+```
+
+---
+
+# 15. Image Size Optimization
+
+Recommended optimizations
+
+| Method | Benefit |
+|---------|---------|
+| Multi-stage build | Remove build tools |
+| python:3.12-slim-bookworm | Smaller base image |
+| uv | Faster install |
+| uv.lock | Reproducible dependencies |
+| .dockerignore | Exclude notebooks, figures, datasets |
+| Remove Jupyter from production | Smaller runtime |
+| Separate development dependencies | Cleaner image |
+| --no-cache | Remove package cache |
+| PYTHONDONTWRITEBYTECODE | Avoid unnecessary files |
+| Clean apt cache | Reduce layer size |
+
+Expected image size
+
+| Version | Size |
+|----------|------|
+| Original | 2.5–4 GB |
+| Optimized | 700–900 MB |
+| ARM64 | 650–850 MB |
+
+---
+
+# Best Practices / 最佳實務
+
+Recommended files
+
+```
+Dockerfile
+Dockerfile.cuda
+docker-compose.yml
+pyproject.toml
+uv.lock
+.dockerignore
+DOCKER.md
+```
+
+Recommended GitHub Actions
+
+```
+.github/workflows/docker.yml
+```
+
+Automatically build
+
+- AMD64 image
+- ARM64 image
+- Multi-platform image
+
+and publish to
+
+- Docker Hub
+- GitHub Container Registry (GHCR)
+
+---
+
+# Conclusion / 結論
+
+Ricci Finance V16 adopts a modern Docker workflow based on:
+
+- Multi-stage builds
+- `uv` dependency management
+- Multi-platform (AMD64 + ARM64) support
+- Streamlit deployment
+- Optional NVIDIA CUDA and Apple Metal (MPS) acceleration
+- Optimized image size (~700–900 MB)
+- Reproducible and portable research environments
+
+This deployment strategy makes Ricci Finance V16 suitable for personal development, academic collaboration, cloud deployment, and production research workflows.

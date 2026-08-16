@@ -279,9 +279,9 @@ European Physical Journal B.
 
 Introduced the correlation distance
 
-\[
-d=\sqrt{2(1-\rho)}
-\]
+
+$$d=\sqrt{2(1-\rho)}$$
+
 
 which is adopted in Ricci Finance to construct the financial network.
 

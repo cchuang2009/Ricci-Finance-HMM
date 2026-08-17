@@ -460,7 +460,7 @@ There are two kinds of Docker creating:
 
 1. [Docker for streamlit, (app.py). pip way](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/docker-1.md)
 2. [Docker for streamlit. (app.py), uv way](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/docker.md), based on Pyhon-3.13 and V16 project.
-3. [Docker for Jupyterlab. (ricci_finance_v16_lecture.ipynb), uv way](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main//notebookdocker_jupyter.md), based on Pyhon-3.12 and V16 project.
+3. [Docker for Jupyterlab. (ricci_finance_v16_lecture.ipynb), uv way](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/docker_jupyter.md), based on Pyhon-3.12 and V16 project.
 
 # License
 

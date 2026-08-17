@@ -42,7 +42,7 @@ The demo project is makered as [v11](https://github.com/cchuang2009/Ricci-Financ
 ![mp4 Movie](screenshots/ricci_finance_resize.mp4)
 ![Story](screenshots/demo.gif)
 
-[v16](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/v16/) is the final version in the Project.
+[v16](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/v16/) is the last version in the Project.
 
 ## Financial Distance
 
@@ -458,8 +458,9 @@ Example:
 
 There are two kinds of Docker creating:
 
-1. [Docker, pip way](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/docker-1.md)
-2. [Docker, uv way](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/docker.md), based on Pyhon-3.13 and V16 project.
+1. [Docker for streamlit, (app.py). pip way](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/docker-1.md)
+2. [Docker for streamlit. (app.py), uv way](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/docker.md), based on Pyhon-3.13 and V16 project.
+3. [Docker for Jupyterlab. (ricci_finance_v16_lecture.ipynb), uv way](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main//notebookdocker_jupyter.md), based on Pyhon-3.12 and V16 project.
 
 # License
 

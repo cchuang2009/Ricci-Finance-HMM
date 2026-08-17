@@ -1,0 +1,40 @@
+FROM python:3.12-slim-bookworm
+
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV MPLCONFIGDIR=/tmp/matplotlib
+
+WORKDIR /workspace
+
+# System libraries needed by scientific Python packages
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        git \
+        && rm -rf /var/lib/apt/lists/*
+
+# Install uv
+RUN pip install --no-cache-dir uv
+
+# Install dependencies first
+COPY pyproject.toml uv.lock ./
+
+RUN uv sync --frozen
+
+# Copy V16 source
+COPY ricci_finance/ ./ricci_finance/
+
+# Copy notebooks
+#COPY notebooks/ ./notebooks/
+COPY ricci_finance_v16_lecture.ipynb ./notebooks/
+# Verify important packages during BUILD
+RUN .venv/bin/python -c \
+    "import numpy, pandas, scipy, networkx, torch, matplotlib; \
+     print('V16 scientific environment OK')"
+
+RUN .venv/bin/python -c \
+    "import jupyter; print('Jupyter OK')"
+
+EXPOSE 8888
+# ,"--no-browser"
+CMD [".venv/bin/jupyter", "lab","--ip=0.0.0.0","--port=8888","--no-browser", "--allow-root"]

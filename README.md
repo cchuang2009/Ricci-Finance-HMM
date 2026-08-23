@@ -462,6 +462,25 @@ There are two kinds of Docker creating:
 2. [Docker for streamlit. (app.py), uv way](https://github.com/cchuang2009/Ricci-Finance-HMM/tree/main/docker.md), based on Pyhon-3.13 and V16 project.
 3. [Docker for Jupyterlab. (ricci_finance_v16_lecture.ipynb), uv way](https://github.com/cchuang2009/Ricci-Finance-HMM/blob/main/docker_jupyterlab.md), based on Pyhon-3.12 and V16 project.
 
+---
+## Overall Evolution
+
+Briefly, the project can be divided into six stages:
+
+| Stage | Versions | Focus |
+|---|---|---|
+| **1. Financial Geometry** | V1–V4 | Network → distance → Ricci curvature → flow |
+| **2. Dynamic Market Geometry** | V5–V6 | Rolling graphs → graph time series → HMM regimes |
+| **3. Interactive Platform** | V7–V10 | Streamlit → visualization → Ricci Surgery |
+| **4. Temporal/Educational Platform** | V11–V14 | Animation → mathematics → Jupyter → teaching |
+| **5. Integrated Ricci-Finance** | V15 | Ricci + HMM + sectors + capital flow + surgery + Galaxy |
+| **6. Multi-Modal Network Intelligence** | V16 | Multi-sector + communities + GNN/GAT + embeddings + temporal Galaxy |
+
+
+[More Details of Versions Revolution](RICCI_FINANCE_VERSION_HISTORY.md), 
+---
+
+---
 # License
 
 MIT

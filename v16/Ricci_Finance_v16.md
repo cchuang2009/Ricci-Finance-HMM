@@ -428,7 +428,7 @@ But Ricci geometry requires a notion of **distance**.
 
 Correlation has a useful geometric transformation:
 
-$$d_{ij}=\sqrt{2(1-\rho_{ij})$$
+$$d_{ij}=\sqrt{2(1-\rho_{ij})}$$
 
 which has desirable properties for constructing a distance-based financial network.
 

@@ -418,19 +418,11 @@ This becomes the fundamental temporal structure of V16.
 
 Calculate rolling correlations first:
 
-$$
-\rho_{ij}
-=
-\operatorname{corr}(r_i,r_j)
-$$
+$$\rho_{ij}=\text{corr}(r_i,r_j)$$
 
 Then transform correlation into financial distance:
 
-$$
-d_{ij}
-=
-\sqrt{2(1-\rho_{ij})}
-$$
+$$d_{ij}=\sqrt{2(1-\rho_{ij})}$$
 
 **Note**, $-1\le\rho_{ij}\le1,$ but $ 0\le d_{ij}\le2,$ always non-negative.
 
@@ -616,13 +608,7 @@ The curvature is related to the Wasserstein distance between the two neighborhoo
 
 A simplified relationship is:
 
-$$
-\kappa(x,y)
-=
-1-
-\frac{W(m_x,m_y)}
-{d(x,y)}
-$$
+$$\kappa(x,y)=1-\frac{W(m_x,m_y)}{d(x,y)}$$
 
 where:
 
@@ -732,16 +718,7 @@ Raw edge curvature is difficult to use directly in:
 
 Aggregation converts geometric information into a feature vector:
 
-$$
-X_t
-=
-[
-\text{mean curvature},
-\text{centrality},
-\text{degree},
-\ldots
-]
-$$
+$$X_t=[\text{mean curvature},\text{centrality},\text{degree},\ldots]$$
 
 This provides a bridge between:
 
@@ -976,12 +953,7 @@ Construct a matrix representing relationships among sectors.
 
 Conceptually:
 
-$$
-F_{ij}
-=
-\text{flow from sector }i
-\text{ toward sector }j
-$$
+$$F_{ij}=\text{flow from sector }i\text{ toward sector }j$$
 
 Visualization:
 
@@ -1274,9 +1246,9 @@ Interactive visualization
 
 A vector such as:
 
-```text
-z_i ∈ R^64
-```
+
+$$z_i \in \mathbb{R}^{64}$$
+
 
 is difficult to inspect directly.
 
@@ -1324,19 +1296,7 @@ Embedding_t
 
 Therefore:
 
-$$
-\mathcal{M}
-=
-\{
-G_t,
-R_t,
-C_t,
-S_t,
-F_t,
-H_t,
-Z_t
-\}_{t=1}^{T}
-$$
+$$\mathcal{M}=\{G_t,R_t,C_t,S_t,F_t,H_t,Z_t\}_{t=1}^{T}$$
 
 where the symbols represent different modalities of the same market state.
 
@@ -1665,17 +1625,7 @@ Temporal analysis connects all of these dimensions.
 
 Therefore the V16 architecture attempts to construct:
 
-$$
-\text{Market Intelligence}
-=
-f(
-\text{Geometry},
-\text{Topology},
-\text{Economics},
-\text{Flow},
-\text{Temporal State},
-\text{Learned Representation}
-)
-$$
+$$\text{Market Intelligence}=f(
+\text{Geometry,Topology,Economics,Flow,Temporal Stat,Learned Representation})$$
 
 The final objective is not to replace one representation with another, but to determine whether these different representations **agree, disagree, or reveal different aspects of evolving market structure**.

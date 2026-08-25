@@ -499,7 +499,8 @@ Dynamic Market Geometry using Ricci Curvature and Hidden Markov Models
 
 # Author
 
-[Chu-Ching Huang]
+[Chu-Ching Huang](cchuang2009@gmail.com)<br>
+[Eric Liu](liu.eric.minecraft@gmail.com)
 
 Developed using:
 

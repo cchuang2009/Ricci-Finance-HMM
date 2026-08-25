@@ -4,6 +4,8 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 from ricci_finance.sectors import  assign_sectors, sector_flow_matrix,sector_momentum
+# NameError: name 'nx' is not defined. 
+import networkx as nx
 
 def round_numeric(value, digits: int = ROUND_DIGITS):
     """Round scalar float-like values while preserving non-numeric objects."""
